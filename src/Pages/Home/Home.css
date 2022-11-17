@@ -96,6 +96,7 @@ img {
 }
 
 .animatedImg {
+  border-radius: 20px;
   -webkit-animation: animatedImg 5s linear infinite;
   animation: animatedImg 5s linear infinite;
 }

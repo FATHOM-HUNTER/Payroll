@@ -1,12 +1,19 @@
-import React from 'react';
-import { useMoralis, useMoralisQuery } from 'react-moralis';
+import React,{ useEffect, useContext, useState } from 'react';
+import { useMoralis, useMoralisQuery, useWeb3ExecuteFunction } from 'react-moralis';
 import { getExplorer } from '../../../helpers/networks';
 import './Proposal.css';
+import { CharityContext } from '../../Context/CharityContext';
+import toast from 'react-hot-toast';
 
 const Proposal = ({ proposal, showmodal, setProposalID, setNgoWalletAddress, userType }) => {
-  const { ngoAddress, proposalID, title, description, amtThreshold } = proposal;
+  const { ngoAddress, proposalID, amt, name, title, description, noHoursWorked } = proposal;
   const { data } = useMoralisQuery('DonationTable');
-  const { Moralis } = useMoralis();
+
+  const { Moralis, isAuthenticated, isWeb3Enabled, isWeb3EnableLoading } = useMoralis();
+  const { toastStyles, contractABI, contractAddress } = useContext(CharityContext);
+  const contractProcessor = useWeb3ExecuteFunction();
+
+  const [isClicked, setIsClicked] = useState(false)
 
   const fetchAmountReceived = () => {
     let amt = 0;
@@ -18,43 +25,60 @@ const Proposal = ({ proposal, showmodal, setProposalID, setNgoWalletAddress, use
     return amt;
   };
 
+
+  const sendMoney = async(pID) => {
+    if (isAuthenticated) {
+      try {
+        if (!isWeb3Enabled && !isWeb3EnableLoading) await Moralis.enableWeb3();
+        const options = {
+          contractAddress: contractAddress,
+          functionName: 'acceptProposal',
+          abi: contractABI,
+          params: {
+            proposalId: pID
+          },
+        };
+
+        await contractProcessor.fetch({
+          params: options,
+          onSuccess: () => toast.success('Request Sent to HR Successfully!', toastStyles),
+          onError: (error) => toast.error(error, toastStyles),
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  }
+
+  console.log(isClicked)
+
   return (
-    <>
-      <div className="proposal__card">
-        <h4 className="section__heading">{title}</h4>
-        <p className="p__normal">{description}</p>
+    <>{!isClicked && (<div className="proposal__card">
+        <h4 className="section__heading">
+          {name} : {title}
+        </h4>
+        <p className="p__normal">Description: {description}</p>
         <div className="p__funds">
           <p className="p__normal">
-            <span>Funds Required</span> <br /> {amtThreshold} MATIC
+            <span>No. of Hours Worked</span> <br /> {noHoursWorked}
           </p>
           <p className="p__normal">
-            <span>Funds Raised</span> <br />
-            {fetchAmountReceived()} MATIC
+            <span>Expected Salary</span> <br />
+            {amt} MATIC
           </p>
         </div>
         {userType !== 'NGO' && (
           <div className="proposal__card-buttonsContainer">
-            <a
-              href={`${getExplorer('0x13881')}/address/${ngoAddress}#internaltx`}
-              target="_blank"
-              rel="noreferrer"
-              className="custom__button"
-            >
-              View Donations &rarr;
-            </a>
-            <button
-              className="custom__button"
-              onClick={() => {
-                setProposalID(proposalID);
-                setNgoWalletAddress(ngoAddress);
-                showmodal(true);
-              }}
-            >
-              Donate
-            </button>
+            <button onClick={() => {
+              setIsClicked(true);
+            }} style={{ marginRight: '1rem' }} className="custom__button">
+              {' '}
+              Reject
+            </button>{' '}
+            <button onClick={()=>sendMoney(proposalID)} className="custom__button">Send Money</button>
           </div>
         )}
-      </div>
+      </div>)}
     </>
   );
 };

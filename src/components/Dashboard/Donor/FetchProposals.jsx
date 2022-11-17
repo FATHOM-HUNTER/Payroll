@@ -27,16 +27,17 @@ const FetchProposals = ({ userType }) => {
   };
 
   const emptyResult = (
-    <div>
-      <h3>No Campaigns have been created yet!</h3>
+    <div style={{ fontWeight: '700', textAlign: 'center', margin: '12.17rem' }}>
+      No incoming Salary Requests from the Employees
     </div>
   );
 
-  const proposalsVisibleToDonor = (
+  const proposalsVisibleToDonor = isAuthenticated && (
     <div className="fetchProposalResult-dashboard flex__center section__padding">
-      <h1>Current Events</h1>
+      <h1>Current Incoming Salary Requests</h1>
       <div className="proposalResult">
         {fetchedProposals.map((proposal) => {
+          console.log(proposal)
           return (
             !isProposalClose(proposal['proposalID']) && (
               <Proposal
@@ -70,11 +71,7 @@ const FetchProposals = ({ userType }) => {
           return (
             user.get('ethAddress') === proposal.ngoAddress &&
             !isProposalClose(proposal['proposalID']) && (
-              <Proposal
-                key={proposal['proposalID']}
-                proposal={proposal}
-                userType="NGO"
-              />
+              <Proposal key={proposal['proposalID']} proposal={proposal} userType="NGO" />
             )
           );
         })}
@@ -97,7 +94,7 @@ const FetchProposals = ({ userType }) => {
   if (userType === 'DONOR') {
     return hasProposals ? proposalsVisibleToDonor : emptyResult;
   } else {
-    return hasProposals ? proposalsVisibleToNGO : emptyResult;
+    return hasProposals ? proposalsVisibleToNGO : "";
   }
 };
 

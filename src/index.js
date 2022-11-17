@@ -4,13 +4,11 @@ import App from './App';
 import { MoralisProvider } from 'react-moralis';
 import { BrowserRouter } from 'react-router-dom';
 import { CharityDAOProvider } from './components/Context/CharityContext';
+import { SERVER_URL, APP_ID } from './moralis_config';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <MoralisProvider
-    appId={process.env.REACT_APP_MORALIS_APPLICATION_ID}
-    serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
-  >
+  <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
     <CharityDAOProvider>
       <BrowserRouter>
         <App />

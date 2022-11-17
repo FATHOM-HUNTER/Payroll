@@ -32,8 +32,8 @@ const TransferMoney = ({ showmodal, proposalID, ngoWalletAddress }) => {
 
         await contractProcessor.fetch({
           params: options,
-          onSuccess: () => toast.success(`Successfully Donated ${amount} MATIC!`, toastStyles),
-          onError: () => toast.error('Try Again, Donation Failed!', toastStyles),
+          onSuccess: () => toast.success(`Successfully Sent ${amount} MATIC!`, toastStyles),
+          onError: () => toast.error('Try Again, Transaction Failed!', toastStyles),
         });
       } catch (error) {
         console.log(error.message);
@@ -65,7 +65,7 @@ const TransferMoney = ({ showmodal, proposalID, ngoWalletAddress }) => {
     } else {
       clearForm();
       showmodal(false);
-      return toast.error('Please Connect Wallet to Donate!', toastStyles);
+      return toast.error('Please Connect Wallet to Send Money to Employees!', toastStyles);
     }
   };
 

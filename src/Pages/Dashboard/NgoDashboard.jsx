@@ -8,7 +8,7 @@ const NgoDashboard = () => {
   return (
     <>
       <div>
-        <Navbar userType="NGO" />
+        <Navbar userType="EMPLOYEE" />
         <CreateProposal />
         <FetchProposals userType="NGO" />
         <Footer />

@@ -15,7 +15,7 @@ const Home = () => {
         <Navbar />
         <Hero />
         <About />
-        <Services />
+        {/* <Services /> */}
         {/* <Team /> */}
         <Footer />
       </div>

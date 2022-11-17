@@ -17,11 +17,13 @@ const Footer = () => {
     <footer className="app__footer flex__center section__padding">
       <div className="app__footer-conatiner-wrapper flex__center">
         <div className="app__footer-container">
-          <h3 className="app__footer-container-heading">Smart charitables</h3>
+          <h3 className="app__footer-container-heading">Smart Payrolls</h3>
           <div className="app__footer-container-underline"></div>
           <p className="p__normal">
-            Charity DAO is a decentralised charitable organisation that intends to make charity
-            easier and more effective by removing government and geographic constraints ♥️
+            Payroll software integrates with other core business systems to ensure that employees
+            receive accurate, on-time compensation in the appropriate manner. Employees can
+            typically access the software to edit their personal information, payment preferences,
+            and other details.
           </p>
           <div className="app__footer-socialIcons-container">
             <span className="footer-socialIcons flex__center">
@@ -45,31 +47,31 @@ const Footer = () => {
             <span className="app__footer-container-findus-content-icons flex__center">
               <FaAngleRight />
             </span>
-            <p className="p__normal">Huge Help To Homeless Pupil</p>
+            <p className="p__normal">Huge Help To Employees</p>
           </div>
           <div className="app__footer-container-services-content">
             <span className="app__footer-container-findus-content-icons flex__center">
               <FaAngleRight />
             </span>
-            <p className="p__normal">Education For Poor Children</p>
+            <p className="p__normal">Corporate Support</p>
           </div>
           <div className="app__footer-container-services-content">
             <span className="app__footer-container-findus-content-icons flex__center">
               <FaAngleRight />
             </span>
-            <p className="p__normal">Medical Facilities</p>
+            <p className="p__normal">Ease of Use</p>
           </div>
           <div className="app__footer-container-services-content">
             <span className="app__footer-container-findus-content-icons flex__center">
               <FaAngleRight />
             </span>
-            <p className="p__normal">Raise Fund For Healthy Food</p>
+            <p className="p__normal">HR Productivity</p>
           </div>
           <div className="app__footer-container-services-content">
             <span className="app__footer-container-findus-content-icons flex__center">
               <FaAngleRight />
             </span>
-            <p className="p__normal">Let’S Build Some Homes</p>
+            <p className="p__normal">Employee Access</p>
           </div>
         </div>
         <div className="app__footer-container">
@@ -113,7 +115,7 @@ const Footer = () => {
             <span className="app__footer-container-findus-content-icons flex__center">
               <BiCurrentLocation />
             </span>
-            <p className="p__normal">Marthandam</p>
+            <p className="p__normal">Pune Sus</p>
           </div>
           <div className="app__footer-container-findus-content">
             <span className="app__footer-container-findus-content-icons flex__center">
@@ -131,7 +133,7 @@ const Footer = () => {
       </div>
       <div className="empty"></div>
       <p className="copyright__text p__normal">
-        2022 &copy; All Rights Reserved Designed and developed by <span>ALIAS</span>
+        2022 &copy; All Rights Reserved Designed and developed by <span>Govinda & Team</span>
       </p>
     </footer>
   );

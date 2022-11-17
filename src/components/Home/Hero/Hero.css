@@ -36,7 +36,6 @@
 
 .app__hero__contentWrapper-right img {
   width: 100%;
-  margin-top: -96px;
 }
 
 @media screen and (min-width: 2000px) {

@@ -4,7 +4,7 @@ import { useMoralis, useMoralisWeb3Api } from 'react-moralis';
 import { CharityContext } from '../../Context/CharityContext';
 import toast from 'react-hot-toast';
 import { getExplorer } from '../../../helpers/networks';
-import siteLogo from '../../../assets/logo.png';
+// import siteLogo from '../../../assets/logo.png';
 import './Navbar.css';
 import console from 'console-browserify';
 
@@ -17,7 +17,7 @@ const Navbar = ({ userType }) => {
   const hideElement = { display: 'none' };
   const showElement = { display: 'block' };
 
-  // CONNECT TO NGO-DASHBOARD ONLY IF WALLET HAS NFT ELSE CONNECT TO DONOR-DASHBOARD 
+  // NGOs = Employees & DONORs = HR
   const connectUserWallet = async () => {
     if (!isAuthenticated) {
       try {
@@ -27,12 +27,12 @@ const Navbar = ({ userType }) => {
           const options = {
             chain: 'mumbai',
             address: wallet,
-            token_address: '0x5fcd3A03F56F5C12be1B5C408D3c138e07Cb7502',
+            token_address: '0x7Cc9c12819d58eF2518Fd14cDAba7968d1ad60f7',
           };
           const polygonNFTs = await Web3Api.account.getNFTsForContract(options);
           const _hasNFT = polygonNFTs.result.length > 0;
 
-          if ((_hasNFT && userType === 'NGO') || (!_hasNFT && userType === 'DONOR')) {
+          if ((_hasNFT && userType === 'HR') || (!_hasNFT && userType === 'EMPLOYEE')) {
             toast.success('Wallet Successfully Connected!', toastStyles);
           } else {
             await logout();
@@ -48,7 +48,15 @@ const Navbar = ({ userType }) => {
   return (
     <>
       <nav className="app__navbar flex__center section__padding">
-        <img src={siteLogo} title="Logo" alt="logo" onClick={() => navigate('/')} />
+        <h1
+          onClick={() => {
+            logout();
+            navigate('/');
+          }}
+          style={{ padding: '1rem', cursor: 'pointer' }}
+        >
+          SMART PAYROLLS
+        </h1>
         <ul>
           {userType && isAuthenticated && account && (
             <>
@@ -65,17 +73,18 @@ const Navbar = ({ userType }) => {
             </>
           )}
           <li
-            onClick={() => navigate('/dashboard/ngo')}
+            onClick={() => navigate('/dashboard/hr')}
             style={userType ? hideElement : showElement}
           >
-            NGO Dashboard
+            HR Dashboard
           </li>
           <li
-            onClick={() => navigate('/dashboard/donor')}
+            onClick={() => navigate('/dashboard/employee')}
             style={userType ? hideElement : showElement}
           >
-            DONOR Dashboard
+            Employee Dashboard
           </li>
+
           {userType && !isAuthenticated && (
             <li onClick={() => connectUserWallet()}>Connect Wallet</li>
           )}
